@@ -1,0 +1,45 @@
+Vagrant.configure("2") do |config|
+
+    # Kubernetes admin/control-plane
+    config.vm.define "admin" do |admin|
+        admin.vm.provider "virtualbox" do |v|
+            v.name = "k8s-control-plane"
+            v.memory = 2048
+            v.cpus = 2
+            v.customize ["modifyvm", :id, "--audio-driver", "null"]
+        end
+        admin.vm.box = "bento/ubuntu-22.04"
+        admin.vm.network "private_network", ip: "192.168.56.50"
+        admin.vm.hostname = "k8s-control-plane"
+        admin.vm.provision "shell", path: "scripts/install-requirements-k8s-control-plane.sh"
+    end
+
+    # Kubernetes Node 1
+    config.vm.define "node1" do |node1|
+        node1.vm.provider "virtualbox" do |v|
+            v.name = "node1"
+            v.memory = 1300
+            v.cpus = 1
+            v.customize ["modifyvm", :id, "--audio-driver", "null"]
+        end
+        node1.vm.box = "bento/ubuntu-22.04"
+        node1.vm.network "private_network", ip: "192.168.56.51"
+        node1.vm.hostname = "node1"
+        node1.vm.provision "shell", path: "scripts/install-requirements-workers.sh"
+    end
+
+    # Kubernetes Node 2
+    config.vm.define "node2" do |node2|
+        node2.vm.provider "virtualbox" do |v|
+            v.name = "node2"
+            v.memory = 1300
+            v.cpus = 1
+            v.customize ["modifyvm", :id, "--audio", "none"]
+        end
+        node2.vm.box = "bento/ubuntu-22.04"
+        node2.vm.network "private_network", ip: "192.168.56.52"
+        node2.vm.hostname = "node2"
+        node2.vm.provision "shell", path: "scripts/install-requirements-workers.sh"
+    end
+
+end

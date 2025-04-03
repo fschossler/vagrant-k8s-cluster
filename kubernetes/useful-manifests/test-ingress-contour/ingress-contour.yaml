@@ -1,0 +1,13 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: basic
+spec:
+  virtualhost:
+    fqdn: vagrant.k8s.com
+  routes:
+    - conditions:
+      - prefix: /
+      services:
+        - name: nginx
+          port: 80
