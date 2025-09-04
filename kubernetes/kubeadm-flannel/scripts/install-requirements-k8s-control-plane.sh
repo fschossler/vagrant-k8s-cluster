@@ -103,8 +103,8 @@ sudo --user=vagrant kubectl apply -f https://raw.githubusercontent.com/metallb/m
 echo "======================================================================"
 echo "Waiting MetalLB controller pod be in Running state..."
 echo "======================================================================"
+sleep 20
 sudo --user=vagrant kubectl wait --namespace metallb-system --for=condition=ready pod --selector=component=controller --timeout=120s
-sleep 10
 cat >>/home/vagrant/metallb-configs.yml<<EOF
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool

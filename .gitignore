@@ -4,12 +4,12 @@
 .cache/
 .bash_history
 .sudo_as_admin_successful
+**/.DS_Store
 
 # Log files (if you are creating logs in debug mode, uncomment this)
 # *.log
 
 # Share folder with the VM
-
 files/
 
 ### Vagrant Patch ###
