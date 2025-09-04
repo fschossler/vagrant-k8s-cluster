@@ -1,43 +1,43 @@
 ## Vagrant Files
 
-Projeto criado para armazenar e testar meus ambientes em Vagrant.
+Project created to store and test my Vagrant environments.
 
-## Pré-requisitos 💻
+## Prerequisites 💻
 
 ### Software
 
 - kubectl: https://kubernetes.io/docs/tasks/tools/#kubectl
 - Vagrant: https://www.vagrantup.com/docs/installation
 - VirtualBox: https://www.virtualbox.org/wiki/Downloads
-- Instalar plugin para resize do disco: `vagrant plugin install vagrant-disksize`
+- Install disk resize plugin: `vagrant plugin install vagrant-disksize`
 
 ### Hardware
 
-- 8GB RAM ou mais
-- 6 vCPU (idealmente)
-- Disco: Boot das 3 instâncias de acordo com o ambiente desejado + tamanho da instalação/utilização das VMs
+- 8GB RAM or more
+- 6 vCPU (ideally)
+- Disk: Boot of the 3 instances according to the desired environment + size of VM installation/usage
 
-## Instalação 🚀
+## Installation 🚀
 
-Basta entrar no folder `kubeadm-flannel` e executar:
+Just enter the `kubeadm-flannel` folder and run:
 
-```
+```shell
 vagrant up
 ```
 
-## Utilização 🤩
+## Usage 🤩
 
-1. Crie um diretório chamado `.kube` na sua home: `mkdir -p ~/.kube`
-2. Após subir o cluster execute: `scp vagrant@192.168.56.50:/home/vagrant/.kube/config ~/.kube/vagrant-config`
-   * A senha é: `vagrant`
-3. Entre dentro do arquivo de configuração do seu Shell (no meu caso ZSH): `vim ~/.zshrc`
-4. Adicione esse novo arquivo de configuração no KUBECONFIG dentro do arquivo de configuração: `export KUBECONFIG=$KUBECONFIG:~/.kube/vagrant-config`
-5. Renomeie o contexto para vagrant: `kubectl config rename-context kubernetes-admin@kubernetes vagrant`
-6. Feche seu editor e reinicie seu terminal
+1. Create a directory called `.kube` in your home: `mkdir -p ~/.kube`
+2. After starting the cluster, run: `scp vagrant@192.168.56.50:/home/vagrant/.kube/config ~/.kube/vagrant-config`
+   * The password is: `vagrant`
+3. Open your Shell configuration file (in my case ZSH): `vim ~/.zshrc`
+4. Add this new configuration file to KUBECONFIG within the configuration file: `export KUBECONFIG=$KUBECONFIG:~/.kube/vagrant-config`
+5. Rename the context to vagrant: `kubectl config rename-context kubernetes-admin@kubernetes vagrant`
+6. Close your editor and restart your terminal
 
-## Comandos úteis para usar no Vagrant
+## Useful commands to use with Vagrant
 
-- `vagrant suspend`: suspende as VMs atualmente e salva no HD o tamanho delas, útil para não precisar matar todas as VMS e assim liberar a RAM
-- `vagrant resume`: resume a suspensão anterior e trás as VMs e seu cluster e volta a vida
-- `vagrant destroy -f`: exclui todas as VMs e seu cluster inteiro
-- `vagrant ssh nomedavm`: acessa via SSH a VM com seu respectivo nome
+- `vagrant suspend`: suspends the current VMs and saves their state to the hard drive, useful to avoid killing all VMs and thus free up RAM
+- `vagrant resume`: resumes the previous suspension and brings the VMs and your cluster back to life
+- `vagrant destroy -f`: deletes all VMs and your entire cluster
+- `vagrant ssh vmname`: accesses the VM via SSH with its respective name
