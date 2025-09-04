@@ -32,8 +32,8 @@ vagrant up
    * The password is: `vagrant`
 3. Open your Shell configuration file (in my case ZSH): `vim ~/.zshrc`
 4. Add this new configuration file to KUBECONFIG within the configuration file: `export KUBECONFIG=$KUBECONFIG:~/.kube/vagrant-config`
-5. Rename the context to vagrant: `kubectl config rename-context kubernetes-admin@kubernetes vagrant`
-6. Close your editor and restart your terminal
+5. Close your editor and restart your terminal
+6. Rename the context to vagrant: `kubectl config rename-context kubernetes-admin@kubernetes vagrant`
 
 ## Useful commands to use with Vagrant
 
