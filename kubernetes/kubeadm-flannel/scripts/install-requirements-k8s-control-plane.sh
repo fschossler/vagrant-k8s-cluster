@@ -71,9 +71,17 @@ sudo chown -v -R vagrant:vagrant /home/vagrant/.kube/
 export KUBECONFIG=/home/vagrant/.kube/config
 
 echo "======================================================================"
-echo "Install pod-network addon (Flannel)"
+echo "Install pod-network addon (Flannel) with --iface=eth1 patch for Vagrant"
 echo "======================================================================"
-sudo --user=vagrant kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+sudo wget -q https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml -O /home/vagrant/kube-flannel.yml
+sudo sed -i '/        - --ip-masq/a \        - --iface=eth1' /home/vagrant/kube-flannel.yml
+sudo --user=vagrant kubectl apply -f /home/vagrant/kube-flannel.yml
+sudo rm /home/vagrant/kube-flannel.yml
+
+echo "======================================================================"
+echo "Waiting for CoreDNS deployment to be ready..."
+echo "======================================================================"
+sudo --user=vagrant kubectl wait --namespace kube-system --for=condition=available deployment/coredns --timeout=300s
 
 echo "======================================================================"
 echo "Install autocomplete kubectl and use an alias"
